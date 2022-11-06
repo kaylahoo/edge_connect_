@@ -308,6 +308,7 @@ class EdgeConnect():
         )
 
         index = 0
+        mask_pre = 'mask_'
         for items in test_loader:
             name = self.test_dataset.load_name(index)
             #images, images_gray, edges, masks = self.cuda(*items)
@@ -334,7 +335,7 @@ class EdgeConnect():
             output = self.postprocess(outputs_merged)[0]
             output_masks = self.postprocess(images * masks)[0]
             path = os.path.join(self.results_path, name)
-            mask_name = 'mask_'.join(name)
+            mask_name = mask_pre.join(name)
             mask_path = os.path.join(self.results_path, mask_name)
             print(mask_path)
             print(index, name)
