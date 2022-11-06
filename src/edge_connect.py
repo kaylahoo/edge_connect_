@@ -332,13 +332,15 @@ class EdgeConnect():
             #     outputs_merged = (outputs * masks) + (images * (1 - masks))
 
             output = self.postprocess(outputs_merged)[0]
+            print(output_masks.shape)
             output_masks = self.postprocess(images * masks)[0]
+            print((images * masks).shape)
             path = os.path.join(self.results_path, name)
             mask_path = os.path.join(self.results_path, '_mask_').join(name)
             print(index, name)
             imsave(output, path)
-            print(output)
-            print(output_masks)
+            print(output.shape)
+            print(output_masks.shape)
             imsave(output_masks, mask_path)
 
             if self.debug:
