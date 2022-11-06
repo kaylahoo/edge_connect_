@@ -337,6 +337,8 @@ class EdgeConnect():
             mask_path = os.path.join(self.results_path, '_mask_').join(name)
             print(index, name)
             imsave(output, path)
+            print(output)
+            print(output_masks)
             imsave(output_masks, mask_path)
 
             if self.debug:
