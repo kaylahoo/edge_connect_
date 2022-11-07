@@ -63,7 +63,7 @@ for fn in sorted(files):
     img_pred = (imread(path_pred + '/' + basename(str(fn))) / 255.0).astype(np.float32)
 
     # img_gt = resize(img_gt, 256, 256)
-    # img_pred = resize(img_pred, 256, 256)
+    # img_pred = resize(img_pred, 256, 256)cd
 
     img_gt = rgb2gray(img_gt)
     img_pred = rgb2gray(img_pred)
