@@ -5,7 +5,7 @@ from torch import nn
 
 class DepConvBNActiv(nn.Module):
 
-    def __init__(self, in_channels, out_channels, sample='none-3',groups=None):
+    def __init__(self, in_channels, out_channels, bn=True,sample='none-3',groups=None, activ='relu'):
         super(DepConvBNActiv, self).__init__()
         if sample == 'down-31':
             self.Dconv = Depthwise_separable_conv(in_channels, out_channels, kernel_size=31, stride=2,
@@ -25,6 +25,14 @@ class DepConvBNActiv(nn.Module):
         else:
             self.Dconv = Depthwise_separable_conv(in_channels, out_channels, kernel_size=3, stride=1, padding=1,
                                                   groups=groups)
+
+        if bn:
+            self.bn = nn.BatchNorm2d(out_channels)
+
+        if activ == 'relu':
+            self.activation = nn.ReLU6()
+        elif activ == 'leaky':
+            self.activation = nn.LeakyReLU(negative_slope=0.2)
 
     def forward(self, images, masks):
 
@@ -51,7 +59,7 @@ class Depthwise_separable_conv(nn.Module):
             ),
             #nn.SyncBatchNorm(out_channels),
             nn.BatchNorm2d(out_channels),
-            nn.ReLU(),
+            nn.ReLU6(),
         )
     #def __init__(self,in_channels,out_channels):
         #super(Depthwise_separable_conv)
@@ -66,7 +74,7 @@ class Depthwise_separable_conv(nn.Module):
             ),
             #nn.SyncBatchNorm(out_channels),
             nn.BatchNorm2d(out_channels),
-            nn.ReLU(),
+            nn.ReLU6(),
         )
 
     def forward(self, images, masks):
