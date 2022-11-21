@@ -19,7 +19,7 @@ class DepConvBNActiv(nn.Module):
             self.small_res = self.res_block(in_channels, out_channels, is_large_small='small')
             self.Dconv = Depthwise_separable_conv(in_channels, out_channels, kernel_size=31, stride=2,
                                                   padding=15, groups=in_channels)
-            self.decrease_channels = nn.Conv2d(in_channels=in_channels*3, out_channels=out_channels, kernel_size=1)
+            self.decrease_channels = nn.Conv2d(in_channels=in_channels * 3, out_channels=out_channels, kernel_size=1)
 
         elif sample == 'down-29':
             self.large_res = self.res_block(in_channels, out_channels, is_large_small='large', kernel_size=29, stride=1,
@@ -70,6 +70,13 @@ class DepConvBNActiv(nn.Module):
 
         images_s = self.small_res(images)  # 3,1,1
         masks_s = self.small_res(masks)  # 3,1,1
+
+        print(images.shape)
+        print(masks.shape)
+        print(images_l.shape)
+        print(masks_l.shape)
+        print(images_s.shape)
+        print(masks_s.shape)
 
         images = images + images_l + images_s  #
         masks = masks + masks_l + masks_s  #
