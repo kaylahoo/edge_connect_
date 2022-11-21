@@ -71,18 +71,14 @@ class DepConvBNActiv(nn.Module):
         images_s = self.small_res(images)  # 3,1,1
         masks_s = self.small_res(masks)  # 3,1,1
 
-        print(images.shape)
-        print(masks.shape)
-        print(images_l.shape)
-        print(masks_l.shape)
-        print(images_s.shape)
-        print(masks_s.shape)
-
         images = torch.concat([images, images_l, images_s], dim=1)  #
         masks = torch.concat([masks, masks_l, masks_s], dim=1)   #
 
         images = self.decrease_channels(images)
         masks = self.decrease_channels(masks)
+
+        print(images.shape)
+        print(masks.shape)
 
         images, masks = self.Dconv(images, masks)
 
