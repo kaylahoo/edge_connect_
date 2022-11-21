@@ -16,33 +16,45 @@ class DepConvBNActiv(nn.Module):
         if sample == 'down-31':
             self.large_res = self.res_block(in_channels, out_channels, is_large_small='large', kernel_size=31, stride=1,
                                             padding=15, groups=in_channels)
+
             self.small_res = self.res_block(in_channels, out_channels, is_large_small='small')
-            self.Dconv = Depthwise_separable_conv(in_channels, out_channels, kernel_size=31, stride=2,
-                                                  padding=15, groups=in_channels)
+
             self.decrease_channels = nn.Conv2d(in_channels=in_channels + out_channels * 2, out_channels=out_channels, kernel_size=1)
+
+            self.Dconv = Depthwise_separable_conv(out_channels, out_channels, kernel_size=31, stride=2,
+                                                  padding=15, groups=out_channels)
 
         elif sample == 'down-29':
             self.large_res = self.res_block(in_channels, out_channels, is_large_small='large', kernel_size=29, stride=1,
                                             padding=14, groups=in_channels)
+
             self.small_res = self.res_block(in_channels, out_channels, is_large_small='small')
-            self.Dconv = Depthwise_separable_conv(in_channels, out_channels, kernel_size=29, stride=2, padding=14,
-                                                  groups=in_channels)
+
             self.decrease_channels = nn.Conv2d(in_channels=in_channels + out_channels * 2, out_channels=out_channels, kernel_size=1)
+
+            self.Dconv = Depthwise_separable_conv(out_channels, out_channels, kernel_size=29, stride=2, padding=14,
+                                                  groups=out_channels)
 
         elif sample == 'down-27':
             self.large_res = self.res_block(in_channels, out_channels, is_large_small='large', kernel_size=27, stride=1,
                                             padding=13, groups=in_channels)
+
             self.small_res = self.res_block(in_channels, out_channels, is_large_small='small')
-            self.Dconv = Depthwise_separable_conv(in_channels, out_channels, kernel_size=27, stride=2, padding=13,
-                                                  groups=in_channels)
+
             self.decrease_channels = nn.Conv2d(in_channels=in_channels + out_channels * 2, out_channels=out_channels, kernel_size=1)
+
+            self.Dconv = Depthwise_separable_conv(out_channels, out_channels, kernel_size=27, stride=2, padding=13,
+                                                  groups=out_channels)
         elif sample == 'down-13':
             self.large_res = self.res_block(in_channels, out_channels, is_large_small='large', kernel_size=13, stride=1,
                                             padding=6, groups=in_channels)
+
             self.small_res = self.res_block(in_channels, out_channels, is_large_small='small')
-            self.Dconv = Depthwise_separable_conv(in_channels, out_channels, kernel_size=13, stride=2, padding=6,
-                                                  groups=in_channels)
+
             self.decrease_channels = nn.Conv2d(in_channels=in_channels + out_channels * 2, out_channels=out_channels, kernel_size=1)
+
+            self.Dconv = Depthwise_separable_conv(out_channels, out_channels, kernel_size=13, stride=2, padding=6,
+                                                  groups=out_channels)
 
         else:
             self.Dconv = Depthwise_separable_conv(in_channels, out_channels, kernel_size=3, stride=1, padding=1,
