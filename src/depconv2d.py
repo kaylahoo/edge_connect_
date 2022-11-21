@@ -1,6 +1,9 @@
 import torch
 import torch.nn.functional as F
 from torch import nn
+from timm.models.layers import DropPath
+
+from src.drop import drop_path
 
 
 class DepConvBNActiv(nn.Module):
@@ -76,6 +79,7 @@ class Depthwise_separable_conv(nn.Module):
             nn.BatchNorm2d(out_channels),
             nn.ReLU6(),
         )
+        self.drop_path = DropPath(drop_path) if drop_path > 0. else nn.Identity()
 
     def forward(self, images, masks):
         images1 = self.depthwise_conv(images)
@@ -86,4 +90,4 @@ class Depthwise_separable_conv(nn.Module):
         masks2 = self.pointwise_conv(masks1)
 
 
-        return images + images2, masks + masks2
+        return images + self.drop_path(images2),masks + self.drop_path(masks2)
