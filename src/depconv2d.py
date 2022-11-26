@@ -30,7 +30,7 @@ class DepConvBNActiv(nn.Module):
 
             self.small_res = self.res_block(in_channels, out_channels, is_large_small='small')
 
-            self.decrease_channels = nn.Conv2d(in_channels=in_channels + out_channels * 2, out_channels=out_channels, kernel_size=1)
+            self.decrease_channels = nn.Conv2d(in_channels=in_channels + out_channels, out_channels=out_channels, kernel_size=1)
 
             self.Dconv = Depthwise_separable_conv(out_channels, out_channels, kernel_size=29, stride=2, padding=14,
                                                   groups=out_channels)
@@ -82,16 +82,16 @@ class DepConvBNActiv(nn.Module):
     def forward(self, images, masks):
         if self.small_res is not None:
 
-            images_l, masks_l = self.large_res(images, masks)  # 31,1,15
+            #images_l, masks_l = self.large_res(images, masks)  # 31,1,15
 
             images_s = self.small_res(images)  # 3,1,1
             masks_s = self.small_res(masks)  # 3,1,1
 
-            images = torch.concat([images, images_l, images_s], dim=1)  #
-            masks = torch.concat([masks, masks_l, masks_s], dim=1)   #
+            #images = torch.concat([images, images_l, images_s], dim=1)  #
+            #masks = torch.concat([masks, masks_l, masks_s], dim=1)   #
 
-            images = self.decrease_channels(images)
-            masks = self.decrease_channels(masks)
+            images = self.decrease_channels(images_s)
+            masks = self.decrease_channels(masks_s)
 
         images, masks = self.Dconv(images, masks)
 
