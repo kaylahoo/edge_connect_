@@ -80,15 +80,15 @@ class DepConvBNActiv(nn.Module):
             return nn.Conv2d(in_channels, out_channels, kernel_size=3, stride=1, padding=1)
 
     def forward(self, images, masks):
-        if self.small_res is not None:
+        if self.small_res is not None: # 判断上采样的条件
 
-            #images_l, masks_l = self.large_res(images, masks)  # 31,1,15
+            images_l, masks_l = self.large_res(images, masks)  # 31,1,15
 
-            images_s = self.small_res(images)  # 3,1,1
-            masks_s = self.small_res(masks)  # 3,1,1
+            #images_s = self.small_res(images)  # 3,1,1
+            #masks_s = self.small_res(masks)  # 3,1,1
 
-            images = torch.concat([images, images_s], dim=1)  #
-            masks = torch.concat([masks, masks_s], dim=1)   #
+            images = torch.concat([images, images_l], dim=1)  #
+            masks = torch.concat([masks, masks_l], dim=1)   #
 
             images = self.decrease_channels(images)
             masks = self.decrease_channels(masks)
