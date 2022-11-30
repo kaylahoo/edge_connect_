@@ -19,7 +19,7 @@ class DepConvBNActiv(nn.Module):
 
             self.small_res = self.res_block(in_channels, out_channels, is_large_small='small')
 
-            self.decrease_channels = nn.Conv2d(in_channels=in_channels + out_channels, out_channels=out_channels, kernel_size=1)
+            self.decrease_channels = nn.Conv2d(in_channels=in_channels + out_channels*2, out_channels=out_channels, kernel_size=1)
 
             self.Dconv = Depthwise_separable_conv(out_channels, out_channels, kernel_size=31, stride=2,
                                                   padding=15, groups=out_channels)
@@ -30,7 +30,7 @@ class DepConvBNActiv(nn.Module):
 
             self.small_res = self.res_block(in_channels, out_channels, is_large_small='small')
 
-            self.decrease_channels = nn.Conv2d(in_channels=in_channels + out_channels, out_channels=out_channels, kernel_size=1)
+            self.decrease_channels = nn.Conv2d(in_channels=in_channels + out_channels*2, out_channels=out_channels, kernel_size=1)
 
             self.Dconv = Depthwise_separable_conv(out_channels, out_channels, kernel_size=29, stride=2, padding=14,
                                                   groups=out_channels)
@@ -41,7 +41,7 @@ class DepConvBNActiv(nn.Module):
 
             self.small_res = self.res_block(in_channels, out_channels, is_large_small='small')
 
-            self.decrease_channels = nn.Conv2d(in_channels=in_channels + out_channels, out_channels=out_channels, kernel_size=1)
+            self.decrease_channels = nn.Conv2d(in_channels=in_channels + out_channels*2, out_channels=out_channels, kernel_size=1)
 
             self.Dconv = Depthwise_separable_conv(out_channels, out_channels, kernel_size=27, stride=2, padding=13,
                                                   groups=out_channels)
@@ -51,7 +51,7 @@ class DepConvBNActiv(nn.Module):
 
             self.small_res = self.res_block(in_channels, out_channels, is_large_small='small')
 
-            self.decrease_channels = nn.Conv2d(in_channels=in_channels + out_channels, out_channels=out_channels, kernel_size=1)
+            self.decrease_channels = nn.Conv2d(in_channels=in_channels + out_channels*2, out_channels=out_channels, kernel_size=1)
 
             self.Dconv = Depthwise_separable_conv(out_channels, out_channels, kernel_size=13, stride=2, padding=6,
                                                   groups=out_channels)
@@ -84,11 +84,11 @@ class DepConvBNActiv(nn.Module):
 
             images_l, masks_l = self.large_res(images, masks)  # 31,1,15
 
-            #images_s = self.small_res(images)  # 3,1,1
-            #masks_s = self.small_res(masks)  # 3,1,1
+            images_s = self.small_res(images)  # 3,1,1
+            masks_s = self.small_res(masks)  # 3,1,1
 
-            images = torch.concat([images, images_l], dim=1)  #
-            masks = torch.concat([masks, masks_l], dim=1)   #
+            images = torch.concat([images, images_l,images_s], dim=1)  #
+            masks = torch.concat([masks, masks_l,masks_s], dim=1)   #
 
             images = self.decrease_channels(images)
             masks = self.decrease_channels(masks)
