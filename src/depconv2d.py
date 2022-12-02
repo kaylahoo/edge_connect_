@@ -22,7 +22,7 @@ class DepConvBNActiv(nn.Module):
 
             self.small_res = self.res_block(in_channels, out_channels, is_large_small='small')
 
-            self.decrease_channels = nn.Conv2d(in_channels=in_channels + out_channels * 2, out_channels=out_channels, kernel_size=1)
+            self.decrease_channels = nn.Conv2d(in_channels=out_channels * 3, out_channels=out_channels, kernel_size=1)
 
             self.Dconv = Depthwise_separable_conv(out_channels, out_channels, kernel_size=31, stride=2,
                                                   padding=15, groups=out_channels)
@@ -37,7 +37,7 @@ class DepConvBNActiv(nn.Module):
 
             self.small_res = self.res_block(in_channels, out_channels, is_large_small='small')
 
-            self.decrease_channels = nn.Conv2d(in_channels=in_channels + out_channels * 2, out_channels=out_channels,
+            self.decrease_channels = nn.Conv2d(in_channels=out_channels * 3, out_channels=out_channels,
                                                kernel_size=1)
 
             self.Dconv = Depthwise_separable_conv(out_channels, out_channels, kernel_size=29, stride=2, padding=14,
@@ -53,7 +53,7 @@ class DepConvBNActiv(nn.Module):
 
             self.small_res = self.res_block(in_channels, out_channels, is_large_small='small')
 
-            self.decrease_channels = nn.Conv2d(in_channels=in_channels + out_channels * 2, out_channels=out_channels,
+            self.decrease_channels = nn.Conv2d(in_channels=out_channels * 3, out_channels=out_channels,
                                                kernel_size=1)
 
             self.Dconv = Depthwise_separable_conv(out_channels, out_channels, kernel_size=27, stride=2, padding=13,
@@ -68,7 +68,7 @@ class DepConvBNActiv(nn.Module):
 
             self.small_res = self.res_block(in_channels, out_channels, is_large_small='small')
 
-            self.decrease_channels = nn.Conv2d(in_channels=in_channels + out_channels * 2, out_channels=out_channels,
+            self.decrease_channels = nn.Conv2d(in_channels=out_channels * 3, out_channels=out_channels,
                                                kernel_size=1)
 
             self.Dconv = Depthwise_separable_conv(out_channels, out_channels, kernel_size=13, stride=2, padding=6,
