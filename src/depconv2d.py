@@ -14,13 +14,15 @@ class DepConvBNActiv(nn.Module):
         super(DepConvBNActiv, self).__init__()
 
         if sample == 'down-31':
+
+            self.increase_channels = nn.Conv2d(in_channels, out_channels, 1)
+
             self.large_res = self.res_block(in_channels, out_channels, is_large_small='large', kernel_size=31, stride=1,
                                             padding=15, groups=in_channels)
 
             self.small_res = self.res_block(in_channels, out_channels, is_large_small='small')
 
-            self.decrease_channels = nn.Conv2d(in_channels=in_channels + out_channels * 2, out_channels=out_channels,
-                                               kernel_size=1)
+            self.decrease_channels = nn.Conv2d(in_channels=in_channels + out_channels * 2, out_channels=out_channels, kernel_size=1)
 
             self.Dconv = Depthwise_separable_conv(out_channels, out_channels, kernel_size=31, stride=2,
                                                   padding=15, groups=out_channels)
@@ -29,6 +31,7 @@ class DepConvBNActiv(nn.Module):
             self.se_dconv = SELayer(out_channels, 16)
 
         elif sample == 'down-29':
+            self.increase_channels = nn.Conv2d(in_channels, out_channels, 1)
             self.large_res = self.res_block(in_channels, out_channels, is_large_small='large', kernel_size=29, stride=1,
                                             padding=14, groups=in_channels)
 
@@ -44,6 +47,7 @@ class DepConvBNActiv(nn.Module):
             self.se_dconv = SELayer(out_channels, 16)
 
         elif sample == 'down-27':
+            self.increase_channels = nn.Conv2d(in_channels, out_channels, 1)
             self.large_res = self.res_block(in_channels, out_channels, is_large_small='large', kernel_size=27, stride=1,
                                             padding=13, groups=in_channels)
 
@@ -58,6 +62,7 @@ class DepConvBNActiv(nn.Module):
             self.se_res = SELayer(in_channels, 16)
             self.se_dconv = SELayer(out_channels, 16)
         elif sample == 'down-13':
+            self.increase_channels = nn.Conv2d(in_channels, out_channels, 1)
             self.large_res = self.res_block(in_channels, out_channels, is_large_small='large', kernel_size=13, stride=1,
                                             padding=6, groups=in_channels)
 
@@ -96,6 +101,7 @@ class DepConvBNActiv(nn.Module):
             return nn.Conv2d(in_channels, out_channels, kernel_size=3, stride=1, padding=1)
 
     def forward(self, images, masks):
+
         if self.small_res is not None:  # 判断上采样的条件
 
             images_l, masks_l = self.large_res(images, masks)  # 31,1,15
@@ -109,8 +115,11 @@ class DepConvBNActiv(nn.Module):
             images_s = self.se_res(images_s)
             masks_s = self.se_res(masks_s)
 
-            images = torch.concat([images, images_l, images_s], dim=1)  #
-            masks = torch.concat([masks, masks_l, masks_s], dim=1)  #
+            images_i = self.increase_channels(images)
+            masks_i = self.increase_channels(masks)
+
+            images = images_i + images_l + images_s  #
+            masks = masks_i + masks_l + masks_s  #
 
             images = self.decrease_channels(images)
             masks = self.decrease_channels(masks)
