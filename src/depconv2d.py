@@ -27,7 +27,7 @@ class DepConvBNActiv(nn.Module):
             self.Dconv = Depthwise_separable_conv(out_channels, out_channels, kernel_size=31, stride=2,
                                                   padding=15, groups=out_channels)
 
-            self.se_res = SELayer(in_channels, 16)
+            self.se_res = SELayer(out_channels, 16)
             self.se_dconv = SELayer(out_channels, 16)
 
         elif sample == 'down-29':
@@ -43,7 +43,7 @@ class DepConvBNActiv(nn.Module):
             self.Dconv = Depthwise_separable_conv(out_channels, out_channels, kernel_size=29, stride=2, padding=14,
                                                   groups=out_channels)
 
-            self.se_res = SELayer(in_channels, 16)
+            self.se_res = SELayer(out_channels, 16)
             self.se_dconv = SELayer(out_channels, 16)
 
         elif sample == 'down-27':
@@ -59,7 +59,7 @@ class DepConvBNActiv(nn.Module):
             self.Dconv = Depthwise_separable_conv(out_channels, out_channels, kernel_size=27, stride=2, padding=13,
                                                   groups=out_channels)
 
-            self.se_res = SELayer(in_channels, 16)
+            self.se_res = SELayer(out_channels, 16)
             self.se_dconv = SELayer(out_channels, 16)
         elif sample == 'down-13':
             self.increase_channels = nn.Conv2d(in_channels, out_channels, 1)
@@ -74,7 +74,7 @@ class DepConvBNActiv(nn.Module):
             self.Dconv = Depthwise_separable_conv(out_channels, out_channels, kernel_size=13, stride=2, padding=6,
                                                   groups=out_channels)
 
-            self.se_res = SELayer(in_channels, 16)
+            self.se_res = SELayer(out_channels, 16)
             self.se_dconv = SELayer(out_channels, 16)
 
         else:
