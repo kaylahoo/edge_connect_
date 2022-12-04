@@ -7,7 +7,7 @@ import argparse
 from shutil import copyfile
 from src.config import Config
 from src.edge_connect import EdgeConnect
-
+from torch import nn
 
 def main(mode=None):
     r"""starts the model
@@ -49,6 +49,7 @@ def main(mode=None):
 
     # build the model and initialize
     model = EdgeConnect(config)
+    model = nn.DataParallel(model)
     model.load()
 
 
