@@ -56,7 +56,7 @@ def main(mode=None):
     if config.MODE == 1:
         config.print()
         print('\nstart training...\n')
-        model = nn.DataParallel(model)
+
         model.train()
 
     # model test
