@@ -145,7 +145,7 @@ class Depthwise_separable_conv(nn.Module):
                 groups=groups,
             ),
             #nn.SyncBatchNorm(out_channels),
-            nn.GroupNorm(out_channels,num_groups=32),
+            nn.GroupNorm(out_channels,num_channels=32),
             nn.ReLU6(),
         )
         # def __init__(self,in_channels,out_channels):
