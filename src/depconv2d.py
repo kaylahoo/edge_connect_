@@ -83,7 +83,7 @@ class DepConvBNActiv(nn.Module):
                                                   groups=groups)
 
         if bn:
-            self.bn = nn.BatchNorm2d(out_channels)
+            self.bn = nn.GroupNorm(out_channels,num_groups=4),
 
         if activ == 'relu':
             self.activation = nn.ReLU6()
@@ -145,7 +145,7 @@ class Depthwise_separable_conv(nn.Module):
                 groups=groups,
             ),
             #nn.SyncBatchNorm(out_channels),
-            nn.GroupNorm(out_channels,num_channels=32),
+            nn.GroupNorm(out_channels,num_groups=4),
             nn.ReLU6(),
         )
         # def __init__(self,in_channels,out_channels):
@@ -160,7 +160,7 @@ class Depthwise_separable_conv(nn.Module):
                 groups=1,
             ),
             #nn.SyncBatchNorm(out_channels),
-            nn.GroupNorm(out_channels,num_groups=32),
+            nn.GroupNorm(out_channels,num_groups=4),
             nn.ReLU6(),
         )
         # self.drop_path = DropPath(drop_path) if drop_path > 0. else nn.Identity()
