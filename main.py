@@ -49,8 +49,6 @@ def main(mode=None):
 
     # build the model and initialize
     model = EdgeConnect(config)
-    #model = nn.DataParallel(model)
-    model = nn.parallel.DistributedDataParallel(model,device_ids=config.GPU)
     model.load()
 
 
@@ -58,6 +56,7 @@ def main(mode=None):
     if config.MODE == 1:
         config.print()
         print('\nstart training...\n')
+        model = nn.DataParallel(model)
         model.train()
 
     # model test
