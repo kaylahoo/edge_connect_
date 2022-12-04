@@ -50,7 +50,7 @@ def main(mode=None):
     # build the model and initialize
     model = EdgeConnect(config)
     #model = nn.DataParallel(model)
-    model = nn.parallel.DistributedDataParallel(model, device_ids=[0,1,2], find_unused_parameters=False)
+    model = nn.parallel.DistributedDataParallel(model,device_ids=config.GPU)
     model.load()
 
 
