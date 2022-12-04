@@ -160,7 +160,7 @@ class Depthwise_separable_conv(nn.Module):
                 groups=1,
             ),
             #nn.SyncBatchNorm(out_channels),
-            nn.GroupNorm(out_channels),
+            nn.GroupNorm(out_channels,num_groups=32),
             nn.ReLU6(),
         )
         # self.drop_path = DropPath(drop_path) if drop_path > 0. else nn.Identity()
