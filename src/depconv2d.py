@@ -2,6 +2,7 @@ import torch
 import torch.nn.functional as F
 from torch import nn
 import timm
+import sys
 
 # from timm.models.layers import DropPath
 from src.SELayer import SELayer
@@ -143,7 +144,7 @@ class Depthwise_separable_conv(nn.Module):
                 padding=padding,
                 groups=groups,
             ),
-            nn.SyncBatchNorm(out_channels),
+            torch.nn.SyncBatchNorm(out_channels),
             #nn.BatchNorm2d(out_channels),
             nn.ReLU6(),
         )
