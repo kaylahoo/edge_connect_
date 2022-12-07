@@ -8,9 +8,9 @@ GPU: [0,1,2]            # list of gpu ids
 DEBUG: 0            # turns on debugging mode
 VERBOSE: 0          # turns on verbose mode in the output console
 
-TRAIN_FLIST: ./datasets/psv_train.flist_test.flist
-VAL_FLIST: ./datasets/psv_train.flist_test.flist
-TEST_FLIST: ./datasets/psv_test.flist_test.flist
+TRAIN_FLIST: ./datasets/psv_train.flist
+VAL_FLIST: ./datasets/psv_train.flist
+TEST_FLIST: ./datasets/psv_test.flist
 
 TRAIN_EDGE_FLIST: ./datasets/places2_edges_train.flist
 VAL_EDGE_FLIST: ./datasets/places2_edges_val.flist
