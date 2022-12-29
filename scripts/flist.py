@@ -19,4 +19,4 @@ for root, dirs, files in os.walk(args.path):
 images = sorted(images)
 #img1 = images[:28000]
 #img2 = images[28000:]
-np.savetxt(args.output+'_test.flist', images, fmt='%s')
+np.savetxt(args.output+'.flist', images, fmt='%s')
