@@ -8,9 +8,9 @@ GPU: [1]            # list of gpu ids
 DEBUG: 0            # turns on debugging mode
 VERBOSE: 0          # turns on verbose mode in the output console
 
-TRAIN_FLIST: /home/lab265/lab265/datasets/FFHQ/ffhqtrain.flist
-VAL_FLIST: /home/lab265/lab265/datasets/FFHQ/ffhqtest.flist
-TEST_FLIST: /home/lab265/lab265/datasets/FFHQ/ffhqtest.flist
+TRAIN_FLIST: ./datasets/psv_train.flist
+VAL_FLIST: ./datasets/psv_test.flist
+TEST_FLIST: ./datasets/psv_test.flist
 
 TRAIN_EDGE_FLIST: ./datasets/places2_edges_train.flist
 VAL_EDGE_FLIST: ./datasets/places2_edges_val.flist
@@ -24,7 +24,7 @@ LR: 0.0001                    # learning rate
 D2G_LR: 0.1                   # discriminator/generator learning rate ratio
 BETA1: 0.0                    # adam optimizer beta1
 BETA2: 0.9                    # adam optimizer beta2
-BATCH_SIZE: 2          # input batch size for training
+BATCH_SIZE: 1                 # input batch size for training
 INPUT_SIZE: 256               # input image size for training 0 for original size
 SIGMA: 2                      # standard deviation of the Gaussian filter used in Canny edge detector (0: random, -1: no edge)
 MAX_ITERS: 2e6                # maximum number of iterations to train the model
