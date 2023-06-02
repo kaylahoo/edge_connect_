@@ -4,13 +4,13 @@ MASK: 3             # 1: random block, 2: half, 3: external, 4: (external, rando
 EDGE: 1             # 1: canny, 2: external
 NMS: 1              # 0: no non-max-suppression, 1: applies non-max-suppression on the external edges by multiplying by Canny
 SEED: 10            # random seed
-GPU: [1]            # list of gpu ids
+GPU: [2]            # list of gpu ids
 DEBUG: 0            # turns on debugging mode
 VERBOSE: 0          # turns on verbose mode in the output console
 
-TRAIN_FLIST: /home/lab265/lab265/datasets/FFHQ/ffhqtrain.flist
-VAL_FLIST: /home/lab265/lab265/datasets/FFHQ/ffhqtest.flist
-TEST_FLIST: /home/lab265/lab265/datasets/FFHQ/ffhqtest.flist
+TRAIN_FLIST: /home/lab265/8T/2T_backup/liulu/edge_connect_/datasets/psv_train.flist
+VAL_FLIST: /home/lab265/8T/2T_backup/liulu/edge_connect_/datasets/psv_train.flist
+TEST_FLIST: /home/lab265/8T/2T_backup/liulu/edge_connect_/datasets/psv_train.flist
 
 TRAIN_EDGE_FLIST: ./datasets/places2_edges_train.flist
 VAL_EDGE_FLIST: ./datasets/places2_edges_val.flist
